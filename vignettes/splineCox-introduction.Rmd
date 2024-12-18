@@ -1,0 +1,67 @@
+---
+title: "Introduction to splineCox"
+author: "Ren Teranishi"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to splineCox}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Introduction
+
+The `splineCox` package provides functions for fitting spline-based Cox regression models.
+These models allow for flexible baseline hazard shapes and efficient model selection
+based on log-likelihood.
+
+# Loading the Package
+
+```{r setup, echo = TRUE}
+library(splineCox)
+library(joint.Cox)  # Required for example data
+```
+
+# Example Dataset
+
+The `dataOvarian` dataset from the `joint.Cox` package contains time-to-event data, event indicators, and covariates for ovarian cancer patients.
+
+```{r example-data}
+# Load the dataset
+data(dataOvarian)
+
+# Display the first few rows
+head(dataOvarian)
+```
+
+# Fitting the Model
+
+We fit a spline-based Cox regression model using three baseline hazard shapes: "constant", "increase", and "decrease".
+
+```{r fit-model}
+# Define variables
+t.event <- dataOvarian$t.event
+event <- dataOvarian$event
+Z <- dataOvarian$CXCL12
+M <- c("constant", "increase", "decrease")
+
+# Fit the model
+reg2 <- splineCox.reg2(t.event, event, Z, model = M)
+
+# Display the results
+print(reg2)
+```
+
+# Interpreting Results
+
+The output of the model includes:
+- The best-fitting baseline hazard shape.
+- Estimates for the regression coefficients (`beta`) and the baseline hazard scale parameter (`gamma`).
+- Log-likelihood, AIC and BIC for selected model.
+- Log-likelihoods of other models.
+
+Below are the results from the example:
+
+```{r display-results}
+# Print a summary of the results
+print(reg2)

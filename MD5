@@ -1,0 +1,15 @@
+7b8742b71a96972e9f31263034cdacdc *DESCRIPTION
+c14e4d4c00e8b8ee26d21cd1f9189098 *NAMESPACE
+4f707fd2da14d434a7bdefc4a07a0119 *NEWS.md
+5338c8aa245b4e5ea135eda2cec5e0af *R/splineCoxreg1.R
+5c2446bddcdc3755af63cb3c6ed303ac *R/splineCoxreg2.R
+135e5946e66edb927f4c1797072700d6 *README.md
+b99f8a690c70d759f8f8c8200e68f4f0 *build/vignette.rds
+72be3589035ba4fa295ef41be6d9edb1 *inst/WORDLIST
+22c58fd7fdc6b70d9180ade201841595 *inst/doc/splineCox-introduction.R
+484577967da2b009e2e65b971c75a087 *inst/doc/splineCox-introduction.Rmd
+204376bd722a1951c4236fa71a40efa1 *inst/doc/splineCox-introduction.html
+1d76975df25c8a450980a2023406d0d5 *man/splineCox.reg1.Rd
+56857ee25abd0153ce3b4c7de9496ee8 *man/splineCox.reg2.Rd
+332173f20d20942c02019350ea4dcadc *tests/spelling.R
+484577967da2b009e2e65b971c75a087 *vignettes/splineCox-introduction.Rmd
