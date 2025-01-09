@@ -12,7 +12,7 @@
 
 <meta name="author" content="Ren Teranishi" />
 
-<meta name="date" content="2024-12-17" />
+<meta name="date" content="2025-01-10" />
 
 <title>Introduction to splineCox</title>
 
@@ -340,7 +340,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">Introduction to splineCox</h1>
 <h4 class="author">Ren Teranishi</h4>
-<h4 class="date">2024-12-17</h4>
+<h4 class="date">2025-01-10</h4>
 
 
 
@@ -349,7 +349,9 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <p>The <code>splineCox</code> package provides functions for fitting
 spline-based Cox regression models. These models allow for flexible
 baseline hazard shapes and efficient model selection based on
-log-likelihood.</p>
+log-likelihood. The package supports predefined baseline hazard shapes
+as well as user-defined numeric vectors, which are normalized to have an
+L1 norm of 1.</p>
 </div>
 <div id="loading-the-package" class="section level1">
 <h1>Loading the Package</h1>
@@ -376,10 +378,10 @@ for ovarian cancer patients.</p>
 ## GSM432224     510     1     990     1     4  0.6115144
 ## GSM432225    1110     0    1110     0     4 -0.5214953</code></pre>
 </div>
-<div id="fitting-the-model" class="section level1">
-<h1>Fitting the Model</h1>
-<p>We fit a spline-based Cox regression model using three baseline
-hazard shapes: “constant”, “increase”, and “decrease”.</p>
+<div id="fitting-the-model-with-predefined-shapes" class="section level1">
+<h1>Fitting the Model with Predefined Shapes</h1>
+<p>We fit a spline-based Cox regression model using three predefined
+baseline hazard shapes: “constant”, “increase”, and “decrease”.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define variables</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>t.event <span class="ot">&lt;-</span> dataOvarian<span class="sc">$</span>t.event</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>event <span class="ot">&lt;-</span> dataOvarian<span class="sc">$</span>event</span>
@@ -414,16 +416,50 @@ hazard shapes: “constant”, “increase”, and “decrease”.</p>
 ## increase     -4629.807
 ## decrease     -4611.546</code></pre>
 </div>
+<div id="fitting-the-model-with-custom-numeric-vectors" class="section level1">
+<h1>Fitting the Model with Custom Numeric Vectors</h1>
+<p>The package also allows users to specify custom numeric vectors to
+define the baseline hazard shape. These vectors will be normalized to
+have an L1 norm of 1.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define custom numeric vectors for baseline hazard shapes</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>custom_models <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>), <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>))</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the model</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>reg2_custom <span class="ot">&lt;-</span> <span class="fu">splineCox.reg2</span>(t.event, event, Z, <span class="at">model =</span> custom_models)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the results</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(reg2_custom)</span></code></pre></div>
+<pre><code>## $model
+## [1] 0.2 0.3 0.3 0.1 0.1
+## 
+## $parameter
+## [1] 0.2 0.3 0.3 0.1 0.1
+## 
+## $beta
+##   estimate         SE      Lower      Upper 
+## 0.20680947 0.04245562 0.12359645 0.29002249 
+## 
+## $gamma
+##  estimate        SE     Lower     Upper 
+## 3.4358301 0.1440085 3.1535735 3.7180866 
+## 
+## $loglik
+## LogLikelihood           AIC           BIC 
+##     -4601.307      9206.615      9216.436 
+## 
+## $other_loglik
+##                            Loglikelihodd
+## c(0.1, 0.2, 0.3, 0.2, 0.2)     -4611.873</code></pre>
+</div>
 <div id="interpreting-results" class="section level1">
 <h1>Interpreting Results</h1>
 <p>The output of the model includes: - The best-fitting baseline hazard
-shape. - Estimates for the regression coefficients (<code>beta</code>)
-and the baseline hazard scale parameter (<code>gamma</code>). -
-Log-likelihood, AIC and BIC for selected model. - Log-likelihoods of
-other models.</p>
-<p>Below are the results from the example:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print a summary of the results</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(reg2)</span></code></pre></div>
+shape or normalized custom vector. - Estimates for the regression
+coefficients (<code>beta</code>) and the baseline hazard scale parameter
+(<code>gamma</code>). - Log-likelihood for model selection.</p>
+<p>Below are the results from the predefined shapes example:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print a summary of the results</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(reg2)</span></code></pre></div>
 <pre><code>## $model
 ## [1] &quot;constant&quot;
 ## 
@@ -446,6 +482,30 @@ other models.</p>
 ##          Loglikelihodd
 ## increase     -4629.807
 ## decrease     -4611.546</code></pre>
+<p>And here are the results from the custom numeric vectors example:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print a summary of the results</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(reg2_custom)</span></code></pre></div>
+<pre><code>## $model
+## [1] 0.2 0.3 0.3 0.1 0.1
+## 
+## $parameter
+## [1] 0.2 0.3 0.3 0.1 0.1
+## 
+## $beta
+##   estimate         SE      Lower      Upper 
+## 0.20680947 0.04245562 0.12359645 0.29002249 
+## 
+## $gamma
+##  estimate        SE     Lower     Upper 
+## 3.4358301 0.1440085 3.1535735 3.7180866 
+## 
+## $loglik
+## LogLikelihood           AIC           BIC 
+##     -4601.307      9206.615      9216.436 
+## 
+## $other_loglik
+##                            Loglikelihodd
+## c(0.1, 0.2, 0.3, 0.2, 0.2)     -4611.873</code></pre>
 </div>
 
 

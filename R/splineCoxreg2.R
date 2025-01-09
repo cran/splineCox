@@ -1,20 +1,22 @@
 #' @title Fitting the five-parameter spline Cox model with a specified shape, selecting the best fit
 #' @description
 #' \code{splineCox.reg2} estimates the parameters of a five-parameter spline Cox model for multiple specified shapes
-#' and selects the best fitting model based on the minimization of the log-likelihood function.
-#' The function calculates the estimates for the model parameters (beta) and the baseline hazard scale parameter (gamma), using non-linear optimization.
+#' and selects the best-fitting model based on the maximization of the log-likelihood function.
+#' This function supports predefined model shapes and custom numeric vectors of length 5.
+#' If numeric vectors are provided, they will be normalized to have an L1 norm of 1.
 #' @export
 #' @importFrom stats nlm
 #' @import joint.Cox
 #' @param t.event a vector for time-to-event
 #' @param event a vector for event indicator (=1 event; =0 censoring)
 #' @param Z a matrix for covariates; nrow(Z)=sample size, ncol(Z)=the number of covariates
-#' @param xi1 lower bound for the hazard function; the default is min(t.event)
-#' @param xi3 upper bound for the hazard function; the default is max(t.event)
-#' @param model A character vector specifying which model shapes to consider for the baseline hazard.
-#'              Available options are:
+#' @param xi1 lower bound for the hazard function; the default is \code{min(t.event)}
+#' @param xi3 upper bound for the hazard function; the default is \code{max(t.event)}
+#' @param model A list of character strings and/or numeric vectors of length 5 specifying the shapes of the baseline hazard function to evaluate.
+#'              Character options include:
 #'              "increase", "constant", "decrease", "unimodal1", "unimodal2", "unimodal3", "bathtub1", "bathtub2", "bathtub3".
-#'              Default is \code{names(shape.list)} which includes all available models.
+#'              Numeric vectors must be of length 5 and will be normalized to have an L1 norm of 1.
+#'              Default is \code{names(shape.list)}, which includes all predefined models.
 #' @param p0 Initial values to maximize the likelihood (1 + p parameters; baseline hazard scale parameter and p regression coefficients)
 #' @return A list containing the following components:
 #'   \item{model}{A character string indicating the shape of the baseline hazard function used.}
@@ -53,18 +55,19 @@ splineCox.reg2 <- function(t.event, event, Z, xi1 = min(t.event), xi3 = max(t.ev
     bathtub3  = c(0.3, 0.299, 0.1009, 0.001, 0.3)
   )
 
-  if (any(!model %in% names(shape.list))) {
-    stop("Invalid model names. Choose from: ", paste(names(shape.list), collapse = ", "))
-  }
-
-  results = lapply(model, function(model) {
-    splineCox.reg1(t.event, event, Z, xi1, xi3, model, p0)
+  results <- lapply(model, function(model) {
+    if (is.character(model) && model %in% names(shape.list)) {
+      splineCox.reg1(t.event, event, Z, xi1, xi3, model, p0)
+    } else if (is.numeric(model) && length(model) == 5) {
+      splineCox.reg1(t.event, event, Z, xi1, xi3, model, p0)
+    } else {
+      stop("Invalid model specification. Provide a valid model name or a numeric vector of length 5.")
+    }
   })
 
   loglik.values = sapply(results, function(res) res$loglik["LogLikelihood"])
   best.index = which.max(loglik.values)
   best.result = results[[best.index]]
-
   other.loglik = loglik.values[-best.index]
   other.loglik = data.frame(Loglikelihodd = other.loglik)
   rownames(other.loglik) = model[-best.index]

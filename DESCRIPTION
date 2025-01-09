@@ -2,7 +2,7 @@ Package: splineCox
 Type: Package
 Title: A Two-Stage Estimation Approach to Cox Regression Using M-Spline
         Function
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: person(given = "Ren",
                   family = "Teranishi",
                   role = c("aut", "cre"),
@@ -19,7 +19,7 @@ Suggests: knitr, rmarkdown, spelling
 VignetteBuilder: knitr
 Language: en-US
 NeedsCompilation: no
-Packaged: 2024-12-17 23:10:49 UTC; a223ms012t
+Packaged: 2025-01-09 16:47:02 UTC; a223ms012t
 Author: Ren Teranishi [aut, cre]
 Repository: CRAN
-Date/Publication: 2024-12-18 16:00:02 UTC
+Date/Publication: 2025-01-09 17:00:02 UTC

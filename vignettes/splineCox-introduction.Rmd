@@ -13,7 +13,7 @@ vignette: >
 
 The `splineCox` package provides functions for fitting spline-based Cox regression models.
 These models allow for flexible baseline hazard shapes and efficient model selection
-based on log-likelihood.
+based on log-likelihood. The package supports predefined baseline hazard shapes as well as user-defined numeric vectors, which are normalized to have an L1 norm of 1.
 
 # Loading the Package
 
@@ -24,7 +24,8 @@ library(joint.Cox)  # Required for example data
 
 # Example Dataset
 
-The `dataOvarian` dataset from the `joint.Cox` package contains time-to-event data, event indicators, and covariates for ovarian cancer patients.
+The `dataOvarian` dataset from the `joint.Cox` package contains time-to-event data, event indicators, 
+and covariates for ovarian cancer patients.
 
 ```{r example-data}
 # Load the dataset
@@ -34,11 +35,11 @@ data(dataOvarian)
 head(dataOvarian)
 ```
 
-# Fitting the Model
+# Fitting the Model with Predefined Shapes
 
-We fit a spline-based Cox regression model using three baseline hazard shapes: "constant", "increase", and "decrease".
+We fit a spline-based Cox regression model using three predefined baseline hazard shapes: "constant", "increase", and "decrease".
 
-```{r fit-model}
+```{r fit-predefined-model}
 # Define variables
 t.event <- dataOvarian$t.event
 event <- dataOvarian$event
@@ -52,16 +53,38 @@ reg2 <- splineCox.reg2(t.event, event, Z, model = M)
 print(reg2)
 ```
 
+# Fitting the Model with Custom Numeric Vectors
+
+The package also allows users to specify custom numeric vectors to define the baseline hazard shape. These vectors will be normalized to have an L1 norm of 1.
+
+```{r fit-custom-model}
+# Define custom numeric vectors for baseline hazard shapes
+custom_models <- list(c(0.1, 0.2, 0.3, 0.2, 0.2), c(0.2, 0.3, 0.3, 0.1, 0.1))
+
+# Fit the model
+reg2_custom <- splineCox.reg2(t.event, event, Z, model = custom_models)
+
+# Display the results
+print(reg2_custom)
+```
+
 # Interpreting Results
 
 The output of the model includes:
-- The best-fitting baseline hazard shape.
+- The best-fitting baseline hazard shape or normalized custom vector.
 - Estimates for the regression coefficients (`beta`) and the baseline hazard scale parameter (`gamma`).
-- Log-likelihood, AIC and BIC for selected model.
-- Log-likelihoods of other models.
+- Log-likelihood for model selection.
 
-Below are the results from the example:
+Below are the results from the predefined shapes example:
 
-```{r display-results}
+```{r display-predefined-results}
 # Print a summary of the results
 print(reg2)
+```
+
+And here are the results from the custom numeric vectors example:
+
+```{r display-custom-results}
+# Print a summary of the results
+print(reg2_custom)
+```

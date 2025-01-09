@@ -21,14 +21,15 @@ splineCox.reg2(
 
 \item{Z}{a matrix for covariates; nrow(Z)=sample size, ncol(Z)=the number of covariates}
 
-\item{xi1}{lower bound for the hazard function; the default is min(t.event)}
+\item{xi1}{lower bound for the hazard function; the default is \code{min(t.event)}}
 
-\item{xi3}{upper bound for the hazard function; the default is max(t.event)}
+\item{xi3}{upper bound for the hazard function; the default is \code{max(t.event)}}
 
-\item{model}{A character vector specifying which model shapes to consider for the baseline hazard.
-Available options are:
+\item{model}{A list of character strings and/or numeric vectors of length 5 specifying the shapes of the baseline hazard function to evaluate.
+Character options include:
 "increase", "constant", "decrease", "unimodal1", "unimodal2", "unimodal3", "bathtub1", "bathtub2", "bathtub3".
-Default is \code{names(shape.list)} which includes all available models.}
+Numeric vectors must be of length 5 and will be normalized to have an L1 norm of 1.
+Default is \code{names(shape.list)}, which includes all predefined models.}
 
 \item{p0}{Initial values to maximize the likelihood (1 + p parameters; baseline hazard scale parameter and p regression coefficients)}
 }
@@ -46,8 +47,9 @@ with model names as row names.}
 }
 \description{
 \code{splineCox.reg2} estimates the parameters of a five-parameter spline Cox model for multiple specified shapes
-and selects the best fitting model based on the minimization of the log-likelihood function.
-The function calculates the estimates for the model parameters (beta) and the baseline hazard scale parameter (gamma), using non-linear optimization.
+and selects the best-fitting model based on the maximization of the log-likelihood function.
+This function supports predefined model shapes and custom numeric vectors of length 5.
+If numeric vectors are provided, they will be normalized to have an L1 norm of 1.
 }
 \examples{
 # Example data
