@@ -12,7 +12,7 @@
 
 <meta name="author" content="Ren Teranishi" />
 
-<meta name="date" content="2025-01-10" />
+<meta name="date" content="2025-01-28" />
 
 <title>Introduction to splineCox</title>
 
@@ -340,7 +340,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">Introduction to splineCox</h1>
 <h4 class="author">Ren Teranishi</h4>
-<h4 class="date">2025-01-10</h4>
+<h4 class="date">2025-01-28</h4>
 
 
 
@@ -389,10 +389,10 @@ baseline hazard shapes: “constant”, “increase”, and “decrease”.</p>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;constant&quot;</span>, <span class="st">&quot;increase&quot;</span>, <span class="st">&quot;decrease&quot;</span>)</span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the model</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>reg2 <span class="ot">&lt;-</span> <span class="fu">splineCox.reg2</span>(t.event, event, Z, <span class="at">model =</span> M)</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the results</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(reg2)</span></code></pre></div>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>reg2 <span class="ot">&lt;-</span> <span class="fu">splineCox.reg2</span>(t.event, event, Z, <span class="at">model =</span> M, <span class="at">plot =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the results</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(reg2)</span></code></pre></div>
 <pre><code>## $model
 ## [1] &quot;constant&quot;
 ## 
@@ -421,14 +421,14 @@ baseline hazard shapes: “constant”, “increase”, and “decrease”.</p>
 <p>The package also allows users to specify custom numeric vectors to
 define the baseline hazard shape. These vectors will be normalized to
 have an L1 norm of 1.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define custom numeric vectors for baseline hazard shapes</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>custom_models <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>), <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>))</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the model</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>reg2_custom <span class="ot">&lt;-</span> <span class="fu">splineCox.reg2</span>(t.event, event, Z, <span class="at">model =</span> custom_models)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the results</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(reg2_custom)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define custom numeric vectors for baseline hazard shapes</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>custom_models <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>), <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the model</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>reg2_custom <span class="ot">&lt;-</span> <span class="fu">splineCox.reg2</span>(t.event, event, Z, <span class="at">model =</span> custom_models, <span class="at">plot =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the results</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(reg2_custom)</span></code></pre></div>
 <pre><code>## $model
 ## [1] 0.2 0.3 0.3 0.1 0.1
 ## 
@@ -456,10 +456,12 @@ have an L1 norm of 1.</p>
 <p>The output of the model includes: - The best-fitting baseline hazard
 shape or normalized custom vector. - Estimates for the regression
 coefficients (<code>beta</code>) and the baseline hazard scale parameter
-(<code>gamma</code>). - Log-likelihood for model selection.</p>
+(<code>gamma</code>). - Log-likelihood for model selection. - A plot of
+the estimated baseline hazard function with 95% confidence intervals (if
+<code>plot = TRUE</code>).</p>
 <p>Below are the results from the predefined shapes example:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print a summary of the results</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(reg2)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print a summary of the results</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(reg2)</span></code></pre></div>
 <pre><code>## $model
 ## [1] &quot;constant&quot;
 ## 
@@ -483,8 +485,8 @@ coefficients (<code>beta</code>) and the baseline hazard scale parameter
 ## increase     -4629.807
 ## decrease     -4611.546</code></pre>
 <p>And here are the results from the custom numeric vectors example:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print a summary of the results</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(reg2_custom)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print a summary of the results</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(reg2_custom)</span></code></pre></div>
 <pre><code>## $model
 ## [1] 0.2 0.3 0.3 0.1 0.1
 ## 

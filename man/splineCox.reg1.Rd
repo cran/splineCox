@@ -11,7 +11,8 @@ splineCox.reg1(
   xi1 = min(t.event),
   xi3 = max(t.event),
   model = "constant",
-  p0 = rep(0, 1 + ncol(as.matrix(Z)))
+  p0 = rep(0, 1 + ncol(as.matrix(Z))),
+  plot = TRUE
 )
 }
 \arguments{
@@ -32,6 +33,12 @@ Available options include:
 Default is "constant"}
 
 \item{p0}{Initial values to maximize the likelihood (1 + p parameters; baseline hazard scale parameter and p regression coefficients)}
+
+\item{plot}{A logical value indicating whether to plot the estimated baseline hazard function.
+If \code{TRUE}, a plot is generated displaying the estimated baseline hazard function along with its 95\% confidence intervals.
+The x-axis represents time, and the y-axis represents the estimated hazard.
+The solid line indicates the estimated hazard function, while the dashed red lines represent the confidence intervals.
+Default is \code{TRUE}.}
 }
 \value{
 A list containing the following components:
@@ -41,11 +48,15 @@ A list containing the following components:
 \item{gamma}{A named vector with the estimate, standard error, and 95\% confidence interval for the baseline hazard parameter}
 \item{loglik}{A named vector containing the log-likelihood (\code{LogLikelihood}),
 Akaike Information Criterion (\code{AIC}), and Bayesian Information Criterion (\code{BIC})}
+\item{plot}{A baseline hazard function plot (if \code{plot = TRUE}).}
 }
 \description{
 \code{splineCox.reg1} estimates the parameters of a five-parameter spline Cox model based on a specified shape for the baseline hazard function.
 The function calculates the estimates for the model parameters (beta) and the baseline hazard scale parameter (gamma), using non-linear optimization.
 If a numeric vector is provided for the \code{model} parameter, it will be normalized to have an L1 norm of 1.
+Additionally, if \code{plot = TRUE}, the function generates a plot of the estimated baseline hazard function with 95\% confidence intervals.
+The x-axis represents time, and the y-axis represents the estimated hazard.
+The solid line indicates the estimated hazard function, while the dashed red lines represent the confidence intervals.
 }
 \examples{
 # Example data

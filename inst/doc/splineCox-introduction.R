@@ -17,7 +17,7 @@ Z <- dataOvarian$CXCL12
 M <- c("constant", "increase", "decrease")
 
 # Fit the model
-reg2 <- splineCox.reg2(t.event, event, Z, model = M)
+reg2 <- splineCox.reg2(t.event, event, Z, model = M, plot = TRUE)
 
 # Display the results
 print(reg2)
@@ -27,7 +27,7 @@ print(reg2)
 custom_models <- list(c(0.1, 0.2, 0.3, 0.2, 0.2), c(0.2, 0.3, 0.3, 0.1, 0.1))
 
 # Fit the model
-reg2_custom <- splineCox.reg2(t.event, event, Z, model = custom_models)
+reg2_custom <- splineCox.reg2(t.event, event, Z, model = custom_models, plot = TRUE)
 
 # Display the results
 print(reg2_custom)

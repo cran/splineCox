@@ -47,7 +47,7 @@ Z <- dataOvarian$CXCL12
 M <- c("constant", "increase", "decrease")
 
 # Fit the model
-reg2 <- splineCox.reg2(t.event, event, Z, model = M)
+reg2 <- splineCox.reg2(t.event, event, Z, model = M, plot = TRUE)
 
 # Display the results
 print(reg2)
@@ -62,7 +62,7 @@ The package also allows users to specify custom numeric vectors to define the ba
 custom_models <- list(c(0.1, 0.2, 0.3, 0.2, 0.2), c(0.2, 0.3, 0.3, 0.1, 0.1))
 
 # Fit the model
-reg2_custom <- splineCox.reg2(t.event, event, Z, model = custom_models)
+reg2_custom <- splineCox.reg2(t.event, event, Z, model = custom_models, plot = TRUE)
 
 # Display the results
 print(reg2_custom)
@@ -74,6 +74,7 @@ The output of the model includes:
 - The best-fitting baseline hazard shape or normalized custom vector.
 - Estimates for the regression coefficients (`beta`) and the baseline hazard scale parameter (`gamma`).
 - Log-likelihood for model selection.
+- A plot of the estimated baseline hazard function with 95% confidence intervals (if `plot = TRUE`).
 
 Below are the results from the predefined shapes example:
 

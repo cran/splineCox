@@ -11,7 +11,8 @@ splineCox.reg2(
   xi1 = min(t.event),
   xi3 = max(t.event),
   model = names(shape.list),
-  p0 = rep(0, 1 + ncol(as.matrix(Z)))
+  p0 = rep(0, 1 + ncol(as.matrix(Z))),
+  plot = TRUE
 )
 }
 \arguments{
@@ -32,6 +33,12 @@ Numeric vectors must be of length 5 and will be normalized to have an L1 norm of
 Default is \code{names(shape.list)}, which includes all predefined models.}
 
 \item{p0}{Initial values to maximize the likelihood (1 + p parameters; baseline hazard scale parameter and p regression coefficients)}
+
+\item{plot}{A logical value indicating whether to plot the estimated baseline hazard function.
+If \code{TRUE}, a plot is generated displaying the estimated baseline hazard function along with its 95\% confidence intervals.
+The x-axis represents time, and the y-axis represents the estimated hazard.
+The solid line indicates the estimated hazard function, while the dashed red lines represent the confidence intervals.
+Default is \code{TRUE}.}
 }
 \value{
 A list containing the following components:
@@ -44,12 +51,17 @@ Akaike Information Criterion (\code{AIC}), and Bayesian Information
 Criterion (\code{BIC}) for the best-fitting model}
 \item{other_models}{A data frame containing the log-likelihood (\code{LogLikelihood}) for all other evaluated models,
 with model names as row names.}
+\item{plot}{A baseline hazard function plot for the best-fitting model (if \code{plot = TRUE}).}
 }
 \description{
 \code{splineCox.reg2} estimates the parameters of a five-parameter spline Cox model for multiple specified shapes
 and selects the best-fitting model based on the maximization of the log-likelihood function.
 This function supports predefined model shapes and custom numeric vectors of length 5.
 If numeric vectors are provided, they will be normalized to have an L1 norm of 1.
+Additionally, if \code{plot = TRUE}, the function generates a plot of the estimated baseline hazard function for the best-fitting model,
+along with its 95\% confidence intervals.
+The x-axis represents time, and the y-axis represents the estimated hazard.
+The solid line indicates the estimated hazard function, while the dashed red lines represent the confidence intervals.
 }
 \examples{
 # Example data

@@ -3,4 +3,6 @@
 export(splineCox.reg1)
 export(splineCox.reg2)
 import(joint.Cox)
+importFrom(graphics,lines)
+importFrom(graphics,par)
 importFrom(stats,nlm)
