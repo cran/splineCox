@@ -40,3 +40,31 @@ print(reg2)
 # Print a summary of the results
 print(reg2_custom)
 
+## ----copula-density-plot, message=FALSE, warning=FALSE------------------------
+library(ggplot2)
+
+N <- 50
+u <- v <- seq(from = 0, to = 1, length.out = N)
+U <- rep(u, N)
+V <- rep(v, each = N)
+
+# Positive Exchangeable
+c.data <- data.frame(
+  U = U, V = V,
+  C = spline.copula(U, V, R = "PE1", density = TRUE, mat = FALSE)
+)
+
+ggplot(aes(x=U, y=V), data=c.data) +
+  geom_contour(aes(x=U,y=V,z=C,colour=after_stat(level)),
+               data=c.data,bins=25)+xlab("u")+ylab("v")
+
+# Negative Exchangeable
+c.data <- data.frame(
+  U = U, V = V,
+  C = spline.copula(U, V, R = "NE3", density = TRUE, mat = FALSE)
+)
+
+ggplot(aes(x=U, y=V), data=c.data) +
+  geom_contour(aes(x=U,y=V,z=C,colour=after_stat(level)),
+               data=c.data,bins=25)+xlab("u")+ylab("v")
+

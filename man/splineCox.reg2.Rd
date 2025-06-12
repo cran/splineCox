@@ -35,23 +35,23 @@ Default is \code{names(shape.list)}, which includes all predefined models.}
 \item{p0}{Initial values to maximize the likelihood (1 + p parameters; baseline hazard scale parameter and p regression coefficients)}
 
 \item{plot}{A logical value indicating whether to plot the estimated baseline hazard function.
-If \code{TRUE}, a plot is generated displaying the estimated baseline hazard function along with its 95\% confidence intervals.
+If \code{TRUE}, a plot is generated displaying the estimated baseline hazard function along with its 95% confidence intervals.
 The x-axis represents time, and the y-axis represents the estimated hazard.
 The solid line indicates the estimated hazard function, while the dashed red lines represent the confidence intervals.
 Default is \code{TRUE}.}
 }
 \value{
 A list containing the following components:
-\item{model}{A character string indicating the shape of the baseline hazard function used.}
-\item{parameter}{A numeric vector of the parameters defining the baseline hazard shape.}
-\item{beta}{A named vector with the estimates, standard errors, and 95\% confidence intervals for the regression coefficients}
-\item{gamma}{A named vector with the estimate, standard error, and 95\% confidence interval for the baseline hazard parameter}
-\item{loglik}{A named vector containing the log-likelihood (\code{LogLikelihood}),
-Akaike Information Criterion (\code{AIC}), and Bayesian Information
-Criterion (\code{BIC}) for the best-fitting model}
-\item{other_models}{A data frame containing the log-likelihood (\code{LogLikelihood}) for all other evaluated models,
-with model names as row names.}
-\item{plot}{A baseline hazard function plot for the best-fitting model (if \code{plot = TRUE}).}
+  \item{model}{A character string indicating the shape of the baseline hazard function used.}
+  \item{parameter}{A numeric vector of the parameters defining the baseline hazard shape.}
+  \item{beta}{A named vector with the estimates, standard errors, and 95\% confidence intervals for the regression coefficients.}
+  \item{gamma}{A named vector with the estimate, standard error, and 95\% confidence interval for the baseline hazard parameter.}
+  \item{loglik}{A named vector containing the log-likelihood (\code{LogLikelihood}),
+                Akaike Information Criterion (\code{AIC}), and Bayesian Information
+                Criterion (\code{BIC}) for the best-fitting model.}
+  \item{other_models}{A data frame containing the log-likelihood (\code{LogLikelihood}) for all other evaluated models,
+                           with model names as row names.}
+  \item{plot}{A baseline hazard function plot for the best-fitting model (if \code{plot = TRUE}).}
 }
 \description{
 \code{splineCox.reg2} estimates the parameters of a five-parameter spline Cox model for multiple specified shapes
@@ -59,7 +59,7 @@ and selects the best-fitting model based on the maximization of the log-likeliho
 This function supports predefined model shapes and custom numeric vectors of length 5.
 If numeric vectors are provided, they will be normalized to have an L1 norm of 1.
 Additionally, if \code{plot = TRUE}, the function generates a plot of the estimated baseline hazard function for the best-fitting model,
-along with its 95\% confidence intervals.
+along with its 95% confidence intervals.
 The x-axis represents time, and the y-axis represents the estimated hazard.
 The solid line indicates the estimated hazard function, while the dashed red lines represent the confidence intervals.
 }
@@ -74,5 +74,10 @@ Z = dataOvarian$CXCL12
 M = c("constant", "increase", "decrease")
 reg2 <- splineCox.reg2(t.event, event, Z, model = M)
 print(reg2)
-
+}
+\references{
+Teranishi, R.; Furukawa, K.; Emura, T. (2025).
+A Two-Stage Estimation Approach to Cox Regression Under the Five-Parameter Spline Model
+Mathematics 13(4), 616. \doi{10.3390/math13040616}
+Available at \url{https://www.mdpi.com/2227-7390/13/4/616}
 }

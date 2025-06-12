@@ -89,3 +89,48 @@ And here are the results from the custom numeric vectors example:
 # Print a summary of the results
 print(reg2_custom)
 ```
+
+
+
+# Modeling Dependence with B-spline Copulas
+
+The `splineCox` package (version 0.0.4 and later) provides the `spline.copula` function, which implements a flexible B-spline copula model based on the five-parameter M-spline basis. This allows users to model dependence structures between two variables on the unit square \([0, 1]^2\), supporting both the copula **density** and **distribution function**.
+
+## Key Features
+
+- Computes the copula **density** \(c(u, v)\) or the copula **distribution function** \(C(u, v)\).
+- Uses a 5×5 coefficient matrix (`R`) with various built-in presets (e.g., independence, positive/negative dependence, tail dependence, etc.).
+- Integrates with the `joint.Cox` package's `M.spline` and `I.spline` basis functions for computation.
+
+## Example: Visualizing Copula Densities
+
+Below is an example illustrating how to visualize the density of the independence copula and a positively dependent copula.
+
+```{r copula-density-plot, message=FALSE, warning=FALSE}
+library(ggplot2)
+
+N <- 50
+u <- v <- seq(from = 0, to = 1, length.out = N)
+U <- rep(u, N)
+V <- rep(v, each = N)
+
+# Positive Exchangeable
+c.data <- data.frame(
+  U = U, V = V,
+  C = spline.copula(U, V, R = "PE1", density = TRUE, mat = FALSE)
+)
+
+ggplot(aes(x=U, y=V), data=c.data) +
+  geom_contour(aes(x=U,y=V,z=C,colour=after_stat(level)),
+               data=c.data,bins=25)+xlab("u")+ylab("v")
+
+# Negative Exchangeable
+c.data <- data.frame(
+  U = U, V = V,
+  C = spline.copula(U, V, R = "NE3", density = TRUE, mat = FALSE)
+)
+
+ggplot(aes(x=U, y=V), data=c.data) +
+  geom_contour(aes(x=U,y=V,z=C,colour=after_stat(level)),
+               data=c.data,bins=25)+xlab("u")+ylab("v")
+```

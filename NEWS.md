@@ -23,3 +23,26 @@
 ## Documentation Improvements
 - Improved documentation for `splineCox.reg1` and `splineCox.reg2` to clearly describe the new plotting feature.
 - Updated the vignette to demonstrate how to use the plotting functionality.
+
+
+# splineCox 0.0.3
+
+## New Features
+- Added plotting functionality to `splineCox.reg1` and `splineCox.reg2` for visualizing the estimated baseline hazard function with confidence intervals.
+- Updated the vignette to include descriptions and examples of the plotting feature.
+
+## Documentation Improvements
+- Improved documentation for `splineCox.reg1` and `splineCox.reg2` to clearly describe the new plotting feature.
+- Updated the vignette to demonstrate how to use the plotting functionality.
+
+
+# splineCox 0.0.4
+
+## New Features
+- Added a new function `spline.copula` implementing a B-spline copula model based on the five-parameter M-spline basis functions.
+- The copula function offers both copula density and distribution function evaluations, with a variety of built-in coefficient matrices (presets) for modeling a wide range of dependence structures.
+
+## Documentation and Publication
+- The main methodology of this package, including the spline-based Cox regression has been published in a peer-reviewed journal. 
+- Updated documentation to reference the published article.
+

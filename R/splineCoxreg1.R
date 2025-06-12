@@ -29,10 +29,10 @@
 #' @return A list containing the following components:
 #'   \item{model}{A shape of the baseline hazard function or the normalized custom numeric vector used.}
 #'   \item{parameter}{A numeric vector of the parameters defining the baseline hazard shape.}
-#'   \item{beta}{A named vector with the estimates, standard errors, and 95% confidence intervals for the regression coefficients}
-#'   \item{gamma}{A named vector with the estimate, standard error, and 95% confidence interval for the baseline hazard parameter}
+#'   \item{beta}{A named vector with the estimates, standard errors, and 95\% confidence intervals for the regression coefficients.}
+#'   \item{gamma}{A named vector with the estimate, standard error, and 95\% confidence interval for the baseline hazard parameter.}
 #'   \item{loglik}{A named vector containing the log-likelihood (\code{LogLikelihood}),
-#'                 Akaike Information Criterion (\code{AIC}), and Bayesian Information Criterion (\code{BIC})}
+#'                 Akaike Information Criterion (\code{AIC}), and Bayesian Information Criterion (\code{BIC}).}
 #'   \item{plot}{A baseline hazard function plot (if \code{plot = TRUE}).}
 #' @examples
 #' # Example data
@@ -44,7 +44,12 @@
 #'
 #' reg1 <- splineCox.reg1(t.event, event, Z, model = "constant")
 #' print(reg1)
-#'
+#' 
+#' @references
+#' Teranishi, R.; Furukawa, K.; Emura, T. (2025).
+#' A Two-Stage Estimation Approach to Cox Regression Under the Five-Parameter Spline Model
+#' Mathematics 13(4), 616. \doi{10.3390/math13040616}
+#' Available at \url{https://www.mdpi.com/2227-7390/13/4/616}
 splineCox.reg1 <- function (t.event, event, Z, xi1 = min(t.event), xi3 = max(t.event),
                             model = "constant", p0 = rep(0, 1 + ncol(as.matrix(Z))),
                             plot = TRUE)

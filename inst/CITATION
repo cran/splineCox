@@ -1,0 +1,18 @@
+citHeader("To cite the methods implemented in this package, please use:")
+
+bibentry(
+  bibtype = "Article",
+  title = "A Two-Stage Estimation Approach to Cox Regression Under the Five-Parameter Spline Model",
+  author = c(
+    person("Ren", "Teranishi"),
+    person("Kyoji", "Furukawa"),
+    person("Takeshi", "Emura")
+  ),
+  journal = "Mathematics",
+  year = 2025,
+  volume = "13",
+  number = "4",
+  pages = "616",
+  doi = "10.3390/math13040616",
+  url = "https://www.mdpi.com/2227-7390/13/4/616"
+)
