@@ -46,3 +46,8 @@
 - The main methodology of this package, including the spline-based Cox regression has been published in a peer-reviewed journal. 
 - Updated documentation to reference the published article.
 
+
+# splineCox 0.0.5
+
+- Added analytical computation of Kendall’s tau and Spearman’s rho in `spline.copula()`
+- Updated documentation and vignette accordingly

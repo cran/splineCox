@@ -2,7 +2,7 @@ Package: splineCox
 Type: Package
 Title: A Two-Stage Estimation Approach to Cox Regression Using M-Spline
         Function
-Version: 0.0.4
+Version: 0.0.5
 Authors@R: person(given = "Ren",
                   family = "Teranishi",
                   role = c("aut", "cre"),
@@ -15,6 +15,8 @@ Description: Implements a two-stage estimation approach for Cox
     In addition, the package provides functions for constructing and evaluating B-spline copulas 
     based on five M-spline or I-spline basis functions, allowing users to flexibly model and 
     compute bivariate dependence structures. Both the copula function and its density can be evaluated.
+    Furthermore, the package supports computation of dependence measures such as Kendall's tau and 
+    Spearman's rho, derived analytically from the copula parameters.
 License: GPL (>= 3)
 Encoding: UTF-8
 RoxygenNote: 7.3.2
@@ -23,7 +25,7 @@ Suggests: knitr, rmarkdown, spelling
 VignetteBuilder: knitr
 Language: en-US
 NeedsCompilation: no
-Packaged: 2025-06-12 10:30:17 UTC; rente
+Packaged: 2025-07-10 18:30:43 UTC; rente
 Author: Ren Teranishi [aut, cre]
 Repository: CRAN
-Date/Publication: 2025-06-12 14:00:07 UTC
+Date/Publication: 2025-07-10 19:00:02 UTC

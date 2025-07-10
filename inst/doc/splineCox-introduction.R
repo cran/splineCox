@@ -68,3 +68,11 @@ ggplot(aes(x=U, y=V), data=c.data) +
   geom_contour(aes(x=U,y=V,z=C,colour=after_stat(level)),
                data=c.data,bins=25)+xlab("u")+ylab("v")
 
+## ----copula-dependence-measures-----------------------------------------------
+# Compute Kendall's tau and Spearman's rho for preset R matrix "PE1"
+out <- spline.copula(U, V, R = "PE1", Kendall = TRUE, Spearman = TRUE)
+
+# Display the results
+out$Kendall_tau
+out$Spearman_rho
+

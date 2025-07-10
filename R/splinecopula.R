@@ -29,13 +29,29 @@
 #' @param mat Logical; if \code{TRUE}, returns the full matrix (outer product) of copula evaluations;
 #' otherwise returns only the diagonal values, i.e., C(u_i, v_i) or c(u_i, v_i) for i = 1,...,n. Default is \code{FALSE}.
 #' @param density Logical; if \code{TRUE}, evaluates the copula density; if \code{FALSE}, evaluates the copula function. Default is \code{FALSE}.
-#' 
-#' @return A numeric vector or matrix. If \code{mat=FALSE}, returns a vector of length \code{length(u)};
-#' if \code{mat=TRUE}, returns a matrix of size \code{length(u)} x \code{length(v)}.
+#' @param Kendall Logical; if TRUE, returns Kendall’s tau in addition to copula values. Default is FALSE.
+#' @param Spearman Logical; if TRUE, returns Spearman’s rho in addition to copula values. Default is FALSE.
+#' @return
+#' If both \code{Kendall = FALSE} and \code{Spearman = FALSE} (default), returns:
+#' \itemize{
+#'   \item A numeric vector of length \code{length(u)} if \code{mat = FALSE}.
+#'   \item A numeric matrix of size \code{length(u)} x \code{length(v)} if \code{mat = TRUE}.
+#' }
+#'
+#' If \code{Kendall = TRUE} or \code{Spearman = TRUE}, returns a list containing:
+#' \itemize{
+#'   \item \code{value}: A numeric vector or matrix representing the evaluated copula function or copula density.
+#'   \item \code{Kendall_tau}: (Optional) Kendall’s tau, included only if \code{Kendall = TRUE}.
+#'   \item \code{Spearman_rho}: (Optional) Spearman’s rho, included only if \code{Spearman = TRUE}.
+#' }
 #' 
 #' @seealso \code{\link[joint.Cox]{M.spline}}, \code{\link[joint.Cox]{I.spline}}
 #' 
 #' @examples
+#' # Example data
+#' library(joint.Cox)
+#' library(ggplot2)
+#' 
 #' # Example data
 #' library(joint.Cox)
 #' library(ggplot2)
@@ -51,12 +67,13 @@
 #'   data = c.data, bins=25) + xlab("u") + ylab("v")
 #'
 
-spline.copula = function(u, v, R = "PE1", mat = FALSE, density = FALSE){
+
+spline.copula = function(u, v, R = "PE1", mat = FALSE, density = FALSE, Kendall = FALSE, Spearman = FALSE){
   
   if(mat == FALSE && length(u) != length(v)){
     warning("the lengths of u and v differ.")
   }
-
+  
   preset <- list(
     ## Positive Exchangeable
     PE1 = matrix(c(1,0,0,0,0,
@@ -175,5 +192,51 @@ spline.copula = function(u, v, R = "PE1", mat = FALSE, density = FALSE){
   }else{
     A = I.spline(u, xi1 = 0, xi3 = 1) %*% R %*% t(I.spline(v, xi1 = 0, xi3 = 1))
   }
-  if(mat == TRUE){A}else{diag(A)}
+  
+  copula_values <- if (mat) A else diag(A)
+  
+  if (Kendall || Spearman) {
+    result <- list()
+    result$value <- copula_values
+    
+    if (Kendall) {
+      E <- matrix(0, 5, 5)
+      for (k in 1:5) {
+        for (i in 1:5) {
+          E[k, i] <- integrate(function(x) {
+            I.spline(x, 0, 1)[, k] * M.spline(x, 0, 1)[, i]
+          }, lower = 0, upper = 1)$value
+        }
+      }
+      tau <- 0
+      for (k in 1:5) {
+        for (l in 1:5) {
+          for (i in 1:5) {
+            for (j in 1:5) {
+              tau <- tau + R[k, l] * R[i, j] * E[k, i] * E[l, j]
+            }
+          }
+        }
+      }
+      
+      result$Kendall_tau <- 4 * tau - 1
+    }
+    
+    if (Spearman) {
+      F <- numeric(5)
+      for (k in 1:5) {
+        F[k] <- integrate(function(u) I.spline(u, 0, 1)[, k], lower = 0, upper = 1)$value
+      }
+      rho <- 0
+      for (k in 1:5) {
+        for (l in 1:5) {
+          rho <- rho + R[k, l] * F[k] * F[l]
+        }
+      }
+      result$Spearman_rho <- 12 * rho - 3
+    }
+    
+    return(result)
+  }
+  return(copula_values)
 }

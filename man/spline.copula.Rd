@@ -4,7 +4,15 @@
 \alias{spline.copula}
 \title{B-spline copula using the five M-spline basis functions}
 \usage{
-spline.copula(u, v, R = "PE1", mat = FALSE, density = FALSE)
+spline.copula(
+  u,
+  v,
+  R = "PE1",
+  mat = FALSE,
+  density = FALSE,
+  Kendall = FALSE,
+  Spearman = FALSE
+)
 }
 \arguments{
 \item{u}{A numeric vector of values in [0, 1] (uniform marginals for the first variable).}
@@ -28,10 +36,24 @@ Default `"PE1"`.}
 otherwise returns only the diagonal values, i.e., C(u_i, v_i) or c(u_i, v_i) for i = 1,...,n. Default is \code{FALSE}.}
 
 \item{density}{Logical; if \code{TRUE}, evaluates the copula density; if \code{FALSE}, evaluates the copula function. Default is \code{FALSE}.}
+
+\item{Kendall}{Logical; if TRUE, returns Kendall’s tau in addition to copula values. Default is FALSE.}
+
+\item{Spearman}{Logical; if TRUE, returns Spearman’s rho in addition to copula values. Default is FALSE.}
 }
 \value{
-A numeric vector or matrix. If \code{mat=FALSE}, returns a vector of length \code{length(u)};
-if \code{mat=TRUE}, returns a matrix of size \code{length(u)} x \code{length(v)}.
+If both \code{Kendall = FALSE} and \code{Spearman = FALSE} (default), returns:
+\itemize{
+  \item A numeric vector of length \code{length(u)} if \code{mat = FALSE}.
+  \item A numeric matrix of size \code{length(u)} x \code{length(v)} if \code{mat = TRUE}.
+}
+
+If \code{Kendall = TRUE} or \code{Spearman = TRUE}, returns a list containing:
+\itemize{
+  \item \code{value}: A numeric vector or matrix representing the evaluated copula function or copula density.
+  \item \code{Kendall_tau}: (Optional) Kendall’s tau, included only if \code{Kendall = TRUE}.
+  \item \code{Spearman_rho}: (Optional) Spearman’s rho, included only if \code{Spearman = TRUE}.
+}
 }
 \description{
 \code{spline.copula} computes the B-spline copula (or its density) based on the five-parameter M-spline basis functions.
@@ -44,6 +66,10 @@ If \code{density = FALSE}, it returns the copula function. The implementation us
 basis functions defined on [0,1]. The coefficient matrix is fixed internally but can be modified in advanced use.
 }
 \examples{
+# Example data
+library(joint.Cox)
+library(ggplot2)
+
 # Example data
 library(joint.Cox)
 library(ggplot2)
