@@ -51,3 +51,12 @@
 
 - Added analytical computation of Kendall’s tau and Spearman’s rho in `spline.copula()`
 - Updated documentation and vignette accordingly
+
+
+# splineCox 0.0.6
+
+- Added spline.copula.simu() to report Kendall's tau and Spearman's rho(empirical and theoretical).
+
+# splineCox 0.0.7
+* Fixed missing importFrom(stats, integrate)
+* Updated spline.copula.simu with improved functionality

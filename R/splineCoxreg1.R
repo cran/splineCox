@@ -27,13 +27,20 @@
 #'             Default is \code{TRUE}.
 #' @param p0 Initial values to maximize the likelihood (1 + p parameters; baseline hazard scale parameter and p regression coefficients)
 #' @return A list containing the following components:
-#'   \item{model}{A shape of the baseline hazard function or the normalized custom numeric vector used.}
-#'   \item{parameter}{A numeric vector of the parameters defining the baseline hazard shape.}
-#'   \item{beta}{A named vector with the estimates, standard errors, and 95\% confidence intervals for the regression coefficients.}
-#'   \item{gamma}{A named vector with the estimate, standard error, and 95\% confidence interval for the baseline hazard parameter.}
-#'   \item{loglik}{A named vector containing the log-likelihood (\code{LogLikelihood}),
-#'                 Akaike Information Criterion (\code{AIC}), and Bayesian Information Criterion (\code{BIC}).}
-#'   \item{plot}{A baseline hazard function plot (if \code{plot = TRUE}).}
+#' \itemize{
+#'   \item \code{model}: A shape of the baseline hazard function or the normalized
+#'         custom numeric vector used.
+#'   \item \code{parameter}: A numeric vector of the parameters defining the
+#'         baseline hazard shape.
+#'   \item \code{beta}: A named vector with the estimates, standard errors, and
+#'         95\% confidence intervals for the regression coefficients.
+#'   \item \code{gamma}: A named vector with the estimate, standard error, and
+#'         95\% confidence interval for the baseline hazard parameter.
+#'   \item \code{loglik}: A named vector containing the log-likelihood
+#'         (\code{LogLikelihood}), Akaike Information Criterion (\code{AIC}),
+#'         and Bayesian Information Criterion (\code{BIC}).
+#'   \item \code{plot}: A baseline hazard function plot (if \code{plot = TRUE}).
+#' }
 #' @examples
 #' # Example data
 #' library(joint.Cox)
