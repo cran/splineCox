@@ -60,3 +60,9 @@
 # splineCox 0.0.7
 * Fixed missing importFrom(stats, integrate)
 * Updated spline.copula.simu with improved functionality
+
+# splineCox 0.0.8
+
+## Changes
+- Updated the constraint tolerance used in `spline.copula()` to `3e-4` to improve numerical stability while maintaining estimation accuracy.
+- Added `spline.copula.MLE()` as a dedicated maximum likelihood estimation routine for spline-based copula models, intended for stable and reproducible estimation workflows.

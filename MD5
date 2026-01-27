@@ -1,9 +1,10 @@
-db814b2a93442f460e7528ae8a698f17 *DESCRIPTION
-625c8d0a9569181d2001d7b889d0c17b *NAMESPACE
-d85c3e6c093c87d474aba5a7030e0e32 *NEWS.md
+70d321ea2926b238ea39974099421907 *DESCRIPTION
+c92554afbf492166a1d499d32217cbbb *NAMESPACE
+a4d24cb6a8f3f5698c7a13487236f1f2 *NEWS.md
 1ce62841e485e5aa17937aea78855870 *R/splineCoxreg1.R
 4d373469bf308d931f959e5871558811 *R/splineCoxreg2.R
-fcaacbbd5c18c605b498f091960e084b *R/splinecopula.R
+0617e41924da4081f204ae81fd683f91 *R/splinecopula.R
+5c42472c9af3437ecb646674b9039499 *R/splinecopulaMLE.R
 d7a4a7b624dc0ba1b53e931c87e76148 *R/splinecopulasim.R
 135e5946e66edb927f4c1797072700d6 *README.md
 cb4924f3573383fca290a0a8e2ca5294 *build/partial.rdb
@@ -12,8 +13,9 @@ cb4924f3573383fca290a0a8e2ca5294 *build/partial.rdb
 9797ee2796b3592edf05e8834db5d500 *inst/WORDLIST
 176ffe29f42fb355c1607fec5552f97a *inst/doc/splineCox-introduction.R
 37e3eb92e3197086966f294b3840fdba *inst/doc/splineCox-introduction.Rmd
-08fdd31fced7ac7506507628cce12caf *inst/doc/splineCox-introduction.html
-53e405a13870e93d0c4988a23c0b699e *man/spline.copula.Rd
+54e6f9ec11b1b6bbd8e545a41cb67bdc *inst/doc/splineCox-introduction.html
+ab979efb1c7231d7e5357d3284639da1 *man/spline.copula.MLE.Rd
+3c4c7b309cdb2f03a8616fe027987994 *man/spline.copula.Rd
 384c8fbfab8ab680adbc36bb9da31f93 *man/spline.copula.simu.Rd
 6428b6e452dc22c9170af4d4a7ceee7e *man/splineCox.reg1.Rd
 bb5625581f0fdd858105b9f3ec46a960 *man/splineCox.reg2.Rd
